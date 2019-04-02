@@ -1,7 +1,10 @@
 #ifndef KALMAN_FILTER_H_
 #define KALMAN_FILTER_H_
 
+#include <math.h>       /* atan2 */
 #include "Eigen/Dense"
+#include <iostream>
+#include <stdlib.h>     /* abs */
 
 class KalmanFilter {
  public:
