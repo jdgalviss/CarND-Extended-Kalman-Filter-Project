@@ -1,9 +1,28 @@
-# Extended Kalman Filter Project Starter Code
-Self-Driving Car Engineer Nanodegree Program
+# Extended Kalman Filter Implementation in c++
 
-In this project you will utilize a kalman filter to estimate the state of a moving object of interest with noisy lidar and radar measurements. Passing the project requires obtaining RMSE values that are lower than the tolerance outlined in the project rubric. 
+### In this project, sensor fusion is performed by implemented Kalman Filter and Extended Kalman Filter on Lidar and Radar measurements to estimate with a higher accuracy the position and velocity of a vehicle. Results can be seen on:
+* [EKF Video](https://youtu.be/GWJFpWi_XQM)
 
-This project involves the Term 2 Simulator which can be downloaded [here](https://github.com/udacity/self-driving-car-sim/releases)
+---
+
+The goals / steps of this project are the following:
+* Read current sensor data from the [simulator](https://github.com/udacity/self-driving-car-sim/releases)
+* Linearize model using first order Taylor expansion.
+* Perform Kalman filter steps: Prediction and Measurement Update (correction) on data from radar and lidar.
+* Calculate Mean Squared Error respect to ground truth data provided by the simulator.
+
+[//]: # (Image References)
+
+[image1]: ./output_imgs/ekf_1.png "ekf1"
+[image2]: ./output_imgs/ekf_2.png "ekf2"
+[image3]: ./output_imgs/ekf_lidar.png "ekf lidar"
+[image4]: ./output_imgs/ekf_radar.png "ekf radar"
+
+
+
+In this project kalman filter is used to estimate the state of a moving object of interest with noisy lidar and radar measurements. 
+
+Simulator which can be downloaded [here](https://github.com/udacity/self-driving-car-sim/releases)
 
 This repository includes two files that can be used to set up and install [uWebSocketIO](https://github.com/uWebSockets/uWebSockets) for either Linux or Mac systems. For windows you can use either Docker, VMware, or even [Windows 10 Bash on Ubuntu](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/) to install uWebSocketIO. Please see the uWebSocketIO Starter Guide page in the classroom within the EKF Project lesson for the required version and installation scripts.
 
@@ -14,12 +33,6 @@ Once the install for uWebSocketIO is complete, the main program can be built and
 3. cmake ..
 4. make
 5. ./ExtendedKF
-
-Tips for setting up your environment can be found in the classroom lesson for this project.
-
-Note that the programs that need to be written to accomplish the project are src/FusionEKF.cpp, src/FusionEKF.h, kalman_filter.cpp, kalman_filter.h, tools.cpp, and tools.h
-
-The program main.cpp has already been filled out, but feel free to modify it.
 
 Here is the main protocol that main.cpp uses for uWebSocketIO in communicating with the simulator.
 
@@ -39,6 +52,24 @@ OUTPUT: values provided by the c++ program to the simulator
 ["rmse_vy"]
 
 ---
+
+
+## Results
+The results of the implementation of the kalman filter can be seen in this [Video](https://youtu.be/GWJFpWi_XQM). 
+
+![alt text][image1]
+
+However, it is of great interest to analyze the performance of each separate sensor, if we ignore data from radar, we would get following result:
+![alt text][image3]
+
+And if we were to ignore data from lidar, the result would be:
+![alt text][image4]
+
+As expected, the accuracy of the radar is infirior to the lidar, this was expected since, radar is escencially more noisy than lidar, it is however more robust in hard weather conditions. 
+
+It can be clearly seen how fusioning these two sensors, we get an important error reduction, this is why Kalman Filters are so important, with them we can take two noisy sensors and boost their accuracy to get preciser and robuster state estimations.
+
+
 
 ## Other Important Dependencies
 
@@ -73,57 +104,4 @@ using the following settings:
 ## Code Style
 
 Please (do your best to) stick to [Google's C++ style guide](https://google.github.io/styleguide/cppguide.html).
-
-## Generating Additional Data
-
-This is optional!
-
-If you'd like to generate your own radar and lidar data, see the
-[utilities repo](https://github.com/udacity/CarND-Mercedes-SF-Utilities) for
-Matlab scripts that can generate additional data.
-
-## Project Instructions and Rubric
-
-Note: regardless of the changes you make, your project must be buildable using
-cmake and make!
-
-More information is only accessible by people who are already enrolled in Term 2
-of CarND. If you are enrolled, see [the project resources page](https://classroom.udacity.com/nanodegrees/nd013/parts/40f38239-66b6-46ec-ae68-03afd8a601c8/modules/0949fca6-b379-42af-a919-ee50aa304e6a/lessons/f758c44c-5e40-4e01-93b5-1a82aa4e044f/concepts/382ebfd6-1d55-4487-84a5-b6a5a4ba1e47)
-for instructions and the project rubric.
-
-## Hints and Tips!
-
-* You don't have to follow this directory structure, but if you do, your work
-  will span all of the .cpp files here. Keep an eye out for TODOs.
-* Students have reported rapid expansion of log files when using the term 2 simulator.  This appears to be associated with not being connected to uWebSockets.  If this does occur,  please make sure you are conneted to uWebSockets. The following workaround may also be effective at preventing large log files.
-
-    + create an empty log file
-    + remove write permissions so that the simulator can't write to log
- * Please note that the ```Eigen``` library does not initialize ```VectorXd``` or ```MatrixXd``` objects with zeros upon creation.
-
-## Call for IDE Profiles Pull Requests
-
-Help your fellow students!
-
-We decided to create Makefiles with cmake to keep this project as platform
-agnostic as possible. Similarly, we omitted IDE profiles in order to ensure
-that students don't feel pressured to use one IDE or another.
-
-However! We'd love to help people get up and running with their IDEs of choice.
-If you've created a profile for an IDE that you think other students would
-appreciate, we'd love to have you add the requisite profile files and
-instructions to ide_profiles/. For example if you wanted to add a VS Code
-profile, you'd add:
-
-* /ide_profiles/vscode/.vscode
-* /ide_profiles/vscode/README.md
-
-The README should explain what the profile does, how to take advantage of it,
-and how to install it.
-
-Regardless of the IDE used, every submitted project must
-still be compilable with cmake and make.
-
-## How to write a README
-A well written README file can enhance your project and portfolio.  Develop your abilities to create professional README files by completing [this free course](https://www.udacity.com/course/writing-readmes--ud777).
 
